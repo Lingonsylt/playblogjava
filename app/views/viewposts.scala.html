@@ -1,0 +1,53 @@
+@(posts : List[Post])
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <link href="http://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/blog.css")">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/macrospikes/default.css")">
+</head>
+
+<body>
+<div id="wrapper">
+    <div id="header">
+        <div id="logo">
+            <h1>
+                <a href="#">
+                    Antons Play!-blogg
+                </a>
+            </h1>
+        </div>
+    </div>
+    <div id="page">
+            @for(post : Post <- posts) {
+                <div class="content">
+                    <h2>@post.caption</h2>
+                    <p>@post.body</p>
+
+                    <div class="comments">
+                        <div class="comment-header">Kommentarer:</div>
+                        <ul>
+                            @for(comment : Comment <- post.comments) {
+                                <li>
+                                    @comment.commenter: @comment.body
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div><em>Skriv en kommentar:</em></div>
+                    <div class="comment-form">
+                        <form action="@routes.Application.createComment()" method="post">
+                            <label for="commenter">Namn:</label>
+                            <input id="commenter" name="commenter" />
+                            <label for="body">Kommentar:</label>
+                            <input id="body" name="body" />
+                            <input type="hidden" name="post.id" value="@post.id">
+                            <input type="submit" value="Skicka"/>
+                        </form>
+                    </div>
+                </div>
+            }
+        <a href="@routes.Application.newPost()">Skriv en ny bloggpost!</a>
+    </div>
+</div>
+</body>
+</html>

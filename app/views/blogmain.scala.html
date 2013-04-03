@@ -1,0 +1,25 @@
+@(content : Html)
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <link href="http://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/blog.css")">
+    <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/macrospikes/default.css")">
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <div id="logo">
+                <h1>
+                    <a href="@routes.Application.viewPosts()">
+                            Antons Play!-blog
+                    </a>
+                </h1>
+            </div>
+        </div>
+        <div id="page">
+            @content
+        </div>
+    </div>
+</body>
+</html>

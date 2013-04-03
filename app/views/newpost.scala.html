@@ -1,0 +1,17 @@
+@blogmain {
+    <h2>Ny bloggpost</h2>
+    <form action="@routes.Application.newPost()" method="post">
+
+        <div>
+            <div><label for="caption">Rubrik:</label></div>
+            <input id="caption" name="caption" />
+        </div>
+
+        <div style="margin-top: 10px;">
+            <div><label for="body">Innehåll:</label></div>
+            <textarea id="body" name="body" rows="20" style="width: 80%; margin-bottom: 5px;"></textarea>
+        </div>
+
+        <input type="submit" value="Skicka" />
+    </form>
+}
