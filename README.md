@@ -12,10 +12,10 @@ Setting up the system in less than 10 minutes:
 
    5a (easy). Edit `conf/application.conf` and replace the postgres-config with this:
 
-    db.default.driver=org.h2.Driver
-    db.default.url="jdbc:h2:mem:play"
-    db.default.user=sa
-    db.default.password=
+   > db.default.driver=org.h2.Driver  
+   > db.default.url="jdbc:h2:mem:play"  
+   > db.default.user=sa  
+   > db.default.password=  
 
    5b (harder). Set up a postgres database with a superuser called `playblog` with password `playblog`
 
@@ -25,4 +25,3 @@ Setting up the system in less than 10 minutes:
 Introduction
 ------------
 [http://www.playframework.com/](http://www.playframework.com/)
-
