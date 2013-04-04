@@ -6,7 +6,7 @@
 GET     /                           controllers.Application.index()
 GET     /posts                      controllers.Application.viewPosts()
 GET     /new-post                   controllers.Application.newPost()
-POST    /new-post                   controllers.Application.createPost()
+POST    /new-post                   controllers.Application.createPost(tags : String)
 POST    /new-comment                controllers.Application.createComment()
 
 # Map static resources from the /public folder to the /assets URL path

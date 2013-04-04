@@ -18,9 +18,16 @@ create table post (
   constraint pk_post primary key (id))
 ;
 
+create table tag (
+  name                      varchar(255) not null,
+  constraint pk_tag primary key (name))
+;
+
 create sequence comment_seq;
 
 create sequence post_seq;
+
+create sequence tag_seq;
 
 alter table comment add constraint fk_comment_post_1 foreign key (post_id) references post (id);
 create index ix_comment_post_1 on comment (post_id);
@@ -33,7 +40,11 @@ drop table if exists comment cascade;
 
 drop table if exists post cascade;
 
+drop table if exists tag cascade;
+
 drop sequence if exists comment_seq;
 
 drop sequence if exists post_seq;
+
+drop sequence if exists tag_seq;
 

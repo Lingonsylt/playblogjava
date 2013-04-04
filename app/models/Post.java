@@ -4,6 +4,7 @@ import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.List;
 
@@ -22,6 +23,9 @@ public class Post extends Model {
 
     @OneToMany
     public List<Comment> comments;
+
+    @ManyToOne
+    public List<Tag> tags;
 
     public String caption;
     public String body;

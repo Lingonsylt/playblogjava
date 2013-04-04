@@ -2,6 +2,7 @@ package controllers;
 
 import models.Comment;
 import models.Post;
+import models.Tag;
 import play.*;
 import play.data.Form;
 import play.db.ebean.Model;
@@ -26,15 +27,20 @@ public class Application extends Controller {
         return ok(newpost.render());
     }
 
-    public static Result createPost() {
+    public static Result createPost(String tags) {
         Post post = Form.form(Post.class).bindFromRequest().get();
         post.save();
+        for (String tagString : tags.replace(" ", "").split(",")) {
+            Tag tag = (Tag)new Model.Finder(String.class, Tag.class).byId(tagString);
+            if (tag == null) {
+                tag = new Tag();
+            }
+        }
         return redirect(routes.Application.viewPosts());
     }
 
     public static Result createComment() {
         Comment comment = Form.form(Comment.class).bindFromRequest().get();
-        //comment.post_id
         comment.save();
         return redirect(routes.Application.viewPosts());
     }
