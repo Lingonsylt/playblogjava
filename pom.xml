@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>se.antongomes.dsv.pvt</groupId>
+    <artifactId>pvt-web</artifactId>
+    <packaging>war</packaging>
+    <version>1.0</version>
+    <name>PVT</name>
+    <!-- TODO <description></description> -->
+    <contributors>
+        <contributor>
+            <name>Anton Gomes</name>
+            <email>gomes.anton@gmail.com</email>
+        </contributor>
+        <contributor>
+            <name>Mattias Englund</name>
+            <email>carlmattiasenglund@gmail.com</email>
+        </contributor>
+        <contributor>
+            <name>Christian Valassi</name>
+            <email>christian.valassi@hotmail.com</email>
+        </contributor>
+        <contributor>
+            <name>Michel Nickbon</name>
+            <email>michel.lemponen@gmail.com</email>
+        </contributor>
+        <contributor>
+            <name>Patrik Youssef</name>
+            <email>patrikyoussef@gmail.com</email>
+        </contributor>
+        <contributor>
+            <name>Fredrik Sunnanhed</name>
+            <email>fredrik.sunnanhed@gmail.com</email>
+        </contributor>
+        <contributor>
+            <name>Fredrik Nyman</name>
+            <email>fredrik.nyman@live.se</email>
+        </contributor>
+        <contributor>
+            <name>Daniel Kollin</name>
+            <email>danne.collin@gmail.com</email>
+        </contributor>
+        <contributor>
+            <name>Anton Blomberg</name>
+            <email>anton@naetet.se</email>
+        </contributor>
+        <contributor>
+            <name>Peter Ledberg</name>
+            <email>ledberg.peter@gmail.com</email>
+        </contributor>
+    </contributors>
+
+    <properties>
+        <querydsl.version>2.2.5</querydsl.version>
+        <playframework.version>2.1.1</playframework.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <database.url>jdbc:postgresql://localhost/pvtproj</database.url>
+        <database.username>pvtproj</database.username>
+        <database.password>correcthorsebatterystaple</database.password>
+
+        <wicket.deployment.mode>development</wicket.deployment.mode>
+        <archiveName>pvt</archiveName>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>Development</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <wicket.deployment.mode>DEVELOPMENT</wicket.deployment.mode>
+                <pvt.passwordSalt>foo</pvt.passwordSalt>
+            </properties>
+        </profile>
+        <profile>
+            <id>Production</id>
+            <properties>
+                <wicket.deployment.mode>DEPLOYMENT</wicket.deployment.mode>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <!-- JUnit for testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.playframework</groupId>
+            <artifactId>playframework</artifactId>
+            <version>${playframework.version}</version>
+        </dependency>
+    </dependencies>
+    <repositories>
+
+    </repositories>
+    <build>
+        <!--<finalName>pvt</finalName>-->
+        <!--<finalName>ROOT</finalName>-->
+        <finalName>${archiveName}</finalName>
+        <plugins>
+            <!-- If I don't specify this, Maven uses 1.3... >_< -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <optimize>true</optimize>
+                    <encoding>utf-8</encoding>
+                    <debug>true</debug>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
