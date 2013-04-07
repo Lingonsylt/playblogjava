@@ -38,3 +38,7 @@ input{
     padding:4px 2px;
     border:solid 1px #ccc;
 }
+
+.tag {
+    background-color: #3ca1db;
+}

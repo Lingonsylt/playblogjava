@@ -44,6 +44,11 @@
                             <input type="submit" value="Skicka"/>
                         </form>
                     </div>
+                    <div>
+                        @for(tag : Tag <- post.tags ) {
+                            <span class="tag">@tag.name</span>
+                        }
+                    </div>
                 </div>
             }
         <a href="@routes.Application.newPost()">Skriv en ny bloggpost!</a>
