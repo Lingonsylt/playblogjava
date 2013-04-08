@@ -2,9 +2,7 @@ package models;
 
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -24,5 +22,7 @@ public class Post extends Model {
     public List<Comment> comments;
 
     public String caption;
+    @Column(length = 32000)
     public String body;
+    public String tag;
 }

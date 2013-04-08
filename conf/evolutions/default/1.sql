@@ -14,7 +14,8 @@ create table comment (
 create table post (
   id                        integer not null,
   caption                   varchar(255),
-  body                      varchar(255),
+  body                      varchar(32000),
+  tag                       varchar(255),
   constraint pk_post primary key (id))
 ;
 
