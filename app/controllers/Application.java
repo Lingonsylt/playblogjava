@@ -28,14 +28,18 @@ public class Application extends Controller {
 
     public static Result createPost() {
         Post post = Form.form(Post.class).bindFromRequest().get();
-        post.save();
+        if (!(post.caption.equals("") || post.body.equals("") || post.tag.equals("")))
+            post.save();
+        // else TODO error message
         return redirect(routes.Application.viewPosts());
     }
 
     public static Result createComment() {
         Comment comment = Form.form(Comment.class).bindFromRequest().get();
         //comment.post_id
-        comment.save();
+        if (!(comment.commenter.equals("") || comment.body.equals("")))
+            comment.save();
+        // else TODO error message
         return redirect(routes.Application.viewPosts());
     }
 
