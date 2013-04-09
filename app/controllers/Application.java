@@ -32,17 +32,11 @@ public class Application extends Controller {
      * Create a new Post and save it in DB, based on form-data
      */
     public static Result createPost() {
-        //Post post = Form.form(Post.class).bindFromRequest().get();
-        Post post = new Post();
-        Map<String, String[]> postParams = request().body().asFormUrlEncoded();
-        if (!postParams.containsKey("caption") || !postParams.containsKey("body")) {
-            return badRequest("Missing mandatory fields!");
-        }
-        post.caption = postParams.get("caption")[0];
-        post.body = postParams.get("body")[0];
-        post.tags.addAll(getParsedTags(postParams));
+        Form postForm = Form.form(Post.class).bindFromRequest("caption", "body");
+        Post post = (Post)postForm.get();
+        post.tags.addAll(getParsedTags(request().body().asFormUrlEncoded()));
         post.save();
-        return temporaryRedirect(routes.Application.viewPosts());
+        return redirect(routes.Application.viewPosts());
     }
 
     /**
@@ -76,7 +70,7 @@ public class Application extends Controller {
     public static Result createComment() {
         Comment comment = Form.form(Comment.class).bindFromRequest().get();
         comment.save();
-        return temporaryRedirect(routes.Application.viewPosts());
+        return redirect(routes.Application.viewPosts());
     }
 
 }

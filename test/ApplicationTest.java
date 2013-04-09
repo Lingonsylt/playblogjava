@@ -61,7 +61,7 @@ public class ApplicationTest {
                 );
 
                 // Assert that the response is a temporary redirect
-                assertThat(status(result)).isEqualTo(TEMPORARY_REDIRECT);
+                assertThat(status(result)).isEqualTo(SEE_OTHER);
 
                 // Assert that there is exactly one Post-object in the DB
                 List finderResult = new Model.Finder(String.class, Post.class).all();

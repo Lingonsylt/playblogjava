@@ -1,5 +1,6 @@
 package models;
 
+import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
@@ -24,6 +25,8 @@ public class Post extends Model {
     @ManyToMany
     public List<Tag> tags;
 
+    @Constraints.Required
     public String caption;
+
     public String body;
 }
