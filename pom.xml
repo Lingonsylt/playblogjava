@@ -56,6 +56,7 @@
     <properties>
         <querydsl.version>2.2.5</querydsl.version>
         <playframework.version>2.1.1</playframework.version>
+        <junit.version>4.11</junit.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
