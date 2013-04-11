@@ -2,12 +2,14 @@ import java.util.*;
 
 import models.Post;
 import models.Tag;
+import models.Comment;
 import org.junit.*;
 
 import play.db.ebean.Model;
 import play.mvc.*;
 import play.test.*;
 
+import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
 
@@ -32,7 +34,48 @@ public class ApplicationTest {
         assertThat(contentType(html)).isEqualTo("text/html");
         assertThat(contentAsString(html)).contains("Your new application is ready.");
     }
+    /**
+     * Test that Application.createComment saves comments correctly
+     */
+    @Test
+    public void testCreateComment () {
+        running(fakeApplication(inMemoryDatabase()), new Runnable() {
+            public void run() {
+                Post post = new Post();
+                post.save();
 
+                String testName = "name1";
+                String testComment = "comment1";
+
+                Map<String, String> requestParams = new HashMap<String, String>();
+                requestParams.put("commenter", testName);
+                requestParams.put("body", testComment);
+                requestParams.put("post.id", ""+post.id);
+
+                FakeRequest request = fakeRequest(POST, "/").withFormUrlEncodedBody(requestParams);
+
+                Result result = callAction(
+                        controllers.routes.ref.Application.createComment(),
+                        request
+                );
+
+                assertThat(status(result)).isEqualTo(SEE_OTHER);
+
+                List finderResult = new Model.Finder(String.class, Comment.class).all();
+                assertThat(finderResult.size()).isEqualTo(1);
+
+                Comment comment = (Comment)finderResult.get(0);
+                assertThat(comment).isNotNull();
+                assertThat(comment.commenter).isEqualTo(testName);
+                assertThat(comment.body).isEqualTo(testComment);
+
+                post.refresh();
+
+                assertThat(post.comments.size()).isEqualTo(1);
+                assertThat(post.comments.get(0).id).isEqualTo(comment.id);
+            }
+        });
+    }
     /**
      * Test that Application.createPost returns a temporary redirect and saves a correct Post in DB
      */
@@ -44,7 +87,7 @@ public class ApplicationTest {
                 String testBody = "Test body";
                 String testTags = "tag1 tag2 tag3";
 
-                Map<String, String> requestParams = new HashMap<>();
+                Map<String, String> requestParams = new HashMap<String, String>();
                 requestParams.put("caption", testCaption);
                 requestParams.put("body", testBody);
                 requestParams.put("tags", testTags);
@@ -80,7 +123,7 @@ public class ApplicationTest {
                 tag2.name = "tag2";
                 Tag tag3 = new Tag();
                 tag3.name = "tag3";
-                List<Tag> expectedTags = new LinkedList<>();
+                List<Tag> expectedTags = new LinkedList<Tag>();
                 expectedTags.add(tag1);
                 expectedTags.add(tag2);
                 expectedTags.add(tag3);
@@ -97,7 +140,7 @@ public class ApplicationTest {
     public void testGetParsedTags () {
         running(fakeApplication(inMemoryDatabase()), new Runnable() {
             public void run() {
-                Map<String, String[]> requestParams = new HashMap<>();
+                Map<String, String[]> requestParams = new HashMap<String, String[]>();
                 requestParams.put("tags", new String[]{"tag1 tag2 tag3"});
                 Tag tag1 = new Tag();
                 tag1.name = "tag1";
@@ -105,7 +148,7 @@ public class ApplicationTest {
                 tag2.name = "tag2";
                 Tag tag3 = new Tag();
                 tag3.name = "tag3";
-                List<Tag> expectedTags = new LinkedList<>();
+                List<Tag> expectedTags = new LinkedList<Tag>();
                 expectedTags.add(tag1);
                 expectedTags.add(tag2);
                 expectedTags.add(tag3);
