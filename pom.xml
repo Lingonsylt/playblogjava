@@ -95,14 +95,23 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.playframework</groupId>
             <artifactId>playframework</artifactId>
             <version>${playframework.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>play</groupId>
+            <artifactId>play_2.9.3</artifactId>
+            <version>2.1.1-RC2</version>
         </dependency>
     </dependencies>
     <repositories>
-
+        <repository>
+            <id>typesafe</id>
+            <name>typesafe-releases</name>
+            <url>http://repo.typesafe.com/typesafe/repo</url>
+        </repository>
     </repositories>
     <build>
         <!--<finalName>pvt</finalName>-->
