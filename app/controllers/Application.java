@@ -25,7 +25,7 @@ public class Application extends Controller {
     }
 
     public static Result newPost () {
-        return ok(newpost.render());
+        return ok(newpost.render(Form.form(Post.class)));
     }
 
     /**
