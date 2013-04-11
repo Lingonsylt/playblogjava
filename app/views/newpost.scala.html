@@ -1,7 +1,23 @@
+@(postForm : Form[Post])
 @blogmain {
     <h2>Ny bloggpost</h2>
+
+        @helper.form(action = routes.Application.createPost()) {
+
+        @helper.inputText(postForm("caption"))
+        @helper.inputText(postForm("body"))
+        @helper.inputText(postForm("tags"))
+        <!--@helper.inputText(field = postForm("caption"), '_label -> "Account Name: ", 'placeholder-> "Test")-->
+
+
+<input type="submit" value="Skicka" />
+        }
+<!--
     <form action="@routes.Application.newPost()" method="post">
 
+        @if(postForm != null) {
+            @postForm.errors
+        }
         <div>
             <div><label for="caption">Rubrik:</label></div>
             <input id="caption" name="caption" />
@@ -18,5 +34,5 @@
         </div>
 
         <input type="submit" value="Skicka" />
-    </form>
+    </form> -->
 }
